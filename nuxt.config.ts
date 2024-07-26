@@ -1,8 +1,25 @@
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify';
-export default defineNuxtConfig({
+import { getDynamicUserRoutes, getDynamicContentRoutes } from './api';
+
+export default {
     runtimeConfig: {
         public: {
-            kurocoApiDomain: 'https://dev-nuxt-auth.a.kuroco.app'
+            kurocoApiDomain: 'https://hasebetest-front-nuxt-auth20220913-2.g.kuroco.app '
+        }
+    },
+
+    // generate: {
+    //     routes: ['/member/detail/1', '/member/detail/2', '/member/detail/3']
+    // },
+
+    hooks: {
+        async 'nitro:config'(nitroConfig) {
+            if (nitroConfig.dev) {
+                return;
+            }
+            const dynamicUserRoutes = await getDynamicUserRoutes();
+            const dynamicContentRoutes = await getDynamicContentRoutes();
+            nitroConfig.prerender.routes.push(...dynamicUserRoutes, ...dynamicContentRoutes);
         }
     },
 
@@ -90,4 +107,4 @@ export default defineNuxtConfig({
             }
         }
     }
-});
+};
