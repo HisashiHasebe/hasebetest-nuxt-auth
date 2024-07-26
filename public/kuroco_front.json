@@ -1,0 +1,9 @@
+{
+    "basic": [],
+    "ip_restrictions": [],
+    "redirects": [],
+    "rewrites": [],
+    "error_page": {
+        "status404": "/404.html"
+    }
+}
